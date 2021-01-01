@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, ButtonGroup, Card} from "react-bootstrap";
 import IngredientList from "./IngredientList";
+import {RecipeContext} from "../App";
 
-const Recipe = ({name, cookTime, servings, instructions, ingredients}) => {
+const Recipe = ({id, name, cookTime, servings, instructions, ingredients}) => {
+    const {handleRecipeDelete} = useContext(RecipeContext);
     return (
         <Card>
             <Card.Header className="d-flex justify-content-between">
@@ -10,7 +12,7 @@ const Recipe = ({name, cookTime, servings, instructions, ingredients}) => {
 
                 <ButtonGroup size="sm">
                     <Button variant="primary" size="sm">Edit</Button>
-                    <Button variant="outline-danger" size="sm">Delete</Button>
+                    <Button variant="outline-danger" size="sm" onClick={() => handleRecipeDelete(id)}>Delete</Button>
                 </ButtonGroup>
             </Card.Header>
 
