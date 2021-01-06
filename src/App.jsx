@@ -3,6 +3,7 @@ import './App.css';
 import RecipeList from "./components/RecipeList";
 import {Container} from "react-bootstrap";
 import {v4 as uuidv4} from 'uuid';
+import RecipeEdit from "./components/RecipeEdit";
 
 export const RecipeContext = React.createContext();
 const RECIPE_KEY = 'cookingWithReact.recipes';
@@ -46,11 +47,11 @@ function App() {
         <RecipeContext.Provider value={recipeContextValue}>
             <Container>
                 <div className="row">
-                    <div className="col-12 col-md-6 border-right">
+                    <div className="col-12 col-md-6 border-right py-2">
                         <RecipeList recipes={recipes}/>
                     </div>
-                    <div className="col-12 col-md-6">
-
+                    <div className="col-12 col-md-6 py-2">
+                        <RecipeEdit/>
                     </div>
                 </div>
             </Container>
