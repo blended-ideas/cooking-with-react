@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Col, Form, Row} from "react-bootstrap";
 
-const RecipeIngredientEdit = ({ingredient, handleIngredientChange}) => {
+const RecipeIngredientEdit = ({ingredient, handleIngredientChange, handleRemoveIngredient}) => {
     function handleChange(changes) {
         const newIngredient = {...ingredient, ...changes};
         handleIngredientChange(ingredient.id, newIngredient);
@@ -18,7 +18,7 @@ const RecipeIngredientEdit = ({ingredient, handleIngredientChange}) => {
                               onChange={e => handleChange({amount: e.target.value})}/>
             </Col>
             <Col sm={2}>
-                <Button variant="outline-danger" size="sm">&times;</Button>
+                <Button variant="outline-danger" size="sm" onClick={() => handleRemoveIngredient(ingredient.id)}>&times;</Button>
             </Col>
         </Row>
     );

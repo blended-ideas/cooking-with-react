@@ -3,6 +3,7 @@ import {Button, Col, Form} from "react-bootstrap";
 import {Row} from "react-bootstrap";
 import RecipeIngredientEdit from "./RecipeIngredientEdit";
 import {RecipeContext} from "../App";
+import {v4 as uuidv4} from "uuid";
 
 const RecipeEdit = ({recipe}) => {
     const {handleRecipeChange} = useContext(RecipeContext);
@@ -11,14 +12,26 @@ const RecipeEdit = ({recipe}) => {
         handleRecipeChange(recipe.id, {...recipe, ...changes});
     }
 
+    function handleAddIngredient() {
+        const newIngredients = [...recipe.ingredients, {id: uuidv4(), name: 'Name', amount: '1 Tbsp'}];
+        handleChange({ingredients: newIngredients});
+    }
+
 
     function handleIngredientChange(id, ingredient) {
         const newIngredients = [...recipe.ingredients];
-        const index = recipe.ingredients.findIndex(r => r.id === id);
+        const index = newIngredients.findIndex(r => r.id === id);
         if (index > -1) {
             newIngredients[index] = ingredient;
             handleChange({ingredients: newIngredients});
         }
+    }
+
+    function handleRemoveIngredient(id) {
+        const newIngredients = [...recipe.ingredients];
+        const index = newIngredients.findIndex(r => r.id === id);
+        newIngredients.splice(index, 1);
+        handleChange({ingredients: newIngredients});
     }
 
 
@@ -82,13 +95,15 @@ const RecipeEdit = ({recipe}) => {
                         </Row>
                         {
                             recipe.ingredients.map(ingredient =>
-                                <RecipeIngredientEdit key={ingredient.id} ingredient={ingredient} handleIngredientChange={handleIngredientChange}/>
+                                <RecipeIngredientEdit key={ingredient.id} ingredient={ingredient}
+                                                      handleIngredientChange={handleIngredientChange}
+                                                      handleRemoveIngredient={handleRemoveIngredient}/>
                             )
                         }
                     </div>
 
                     <div className="text-center mt-2">
-                        <Button variant="primary" size="sm">Add Ingredient</Button>
+                        <Button variant="primary" size="sm" onClick={() => handleAddIngredient()}>Add Ingredient</Button>
                     </div>
                 </div>
             </Form>
