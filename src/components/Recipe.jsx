@@ -4,14 +4,14 @@ import IngredientList from "./IngredientList";
 import {RecipeContext} from "../App";
 
 const Recipe = ({id, name, cookTime, servings, instructions, ingredients}) => {
-    const {handleRecipeDelete} = useContext(RecipeContext);
+    const {handleRecipeDelete, handleRecipeSelect} = useContext(RecipeContext);
     return (
         <Card>
             <Card.Header className="d-flex justify-content-between">
                 <h4>{name}</h4>
 
                 <ButtonGroup size="sm">
-                    <Button variant="primary" size="sm">Edit</Button>
+                    <Button variant="primary" size="sm" onClick={() => handleRecipeSelect(id)}>Edit</Button>
                     <Button variant="outline-danger" size="sm" onClick={() => handleRecipeDelete(id)}>Delete</Button>
                 </ButtonGroup>
             </Card.Header>
