@@ -41,6 +41,7 @@ function App() {
             instructions: '1.'
         }
         setRecipes((rec) => [...rec, newRecipe]);
+        handleRecipeSelect(newRecipe.id);
     }
 
     function handleRecipeDelete(id) {

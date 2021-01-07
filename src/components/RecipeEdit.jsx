@@ -6,7 +6,7 @@ import {RecipeContext} from "../App";
 import {v4 as uuidv4} from "uuid";
 
 const RecipeEdit = ({recipe}) => {
-    const {handleRecipeChange} = useContext(RecipeContext);
+    const {handleRecipeChange, handleRecipeSelect} = useContext(RecipeContext);
 
     function handleChange(changes) {
         handleRecipeChange(recipe.id, {...recipe, ...changes});
@@ -38,7 +38,8 @@ const RecipeEdit = ({recipe}) => {
     return (
         <div>
             <div className="d-flex justify-content-end font-size-lg">
-                <Button className="font-size-lg cursor-pointer" size="sm" variant="outline-primary">&times;</Button>
+                <Button className="font-size-lg cursor-pointer" size="sm" variant="outline-primary"
+                        onClick={() => handleRecipeSelect(null)}>&times;</Button>
             </div>
 
             <Form className="mt-4">
@@ -103,7 +104,8 @@ const RecipeEdit = ({recipe}) => {
                     </div>
 
                     <div className="text-center mt-2">
-                        <Button variant="primary" size="sm" onClick={() => handleAddIngredient()}>Add Ingredient</Button>
+                        <Button variant="primary" size="sm" onClick={() => handleAddIngredient()}>Add
+                            Ingredient</Button>
                     </div>
                 </div>
             </Form>
