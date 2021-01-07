@@ -9,7 +9,9 @@ export const RecipeContext = React.createContext();
 const RECIPE_KEY = 'cookingWithReact.recipes';
 
 function App() {
+    const [selectedRecipeId, setSelectedRecipeId] = useState();
     const [recipes, setRecipes] = useState([]);
+    const selectedRecipe = recipes.find(r => r.id === selectedRecipeId);
 
     useEffect(() => {
         const recipesListJSON = localStorage.getItem(RECIPE_KEY);
@@ -22,7 +24,9 @@ function App() {
 
     const recipeContextValue = {
         handleRecipeAdd,
-        handleRecipeDelete
+        handleRecipeDelete,
+        handleRecipeSelect,
+        handleRecipeChange
     }
 
     function handleRecipeAdd() {
@@ -43,6 +47,19 @@ function App() {
         setRecipes(recipesList => recipesList.filter(rec => rec.id !== id));
     }
 
+    function handleRecipeSelect(id) {
+        setSelectedRecipeId(id);
+    }
+
+    function handleRecipeChange(id, recipe) {
+        const newRecipes = [...recipes];
+        const index = newRecipes.findIndex(r => r.id === id);
+        if (index > -1) {
+            newRecipes[index] = recipe;
+            setRecipes(newRecipes);
+        }
+    }
+
     return (
         <RecipeContext.Provider value={recipeContextValue}>
             <Container>
@@ -51,7 +68,7 @@ function App() {
                         <RecipeList recipes={recipes}/>
                     </div>
                     <div className="col-12 col-md-6 py-2">
-                        <RecipeEdit/>
+                        {selectedRecipe && <RecipeEdit recipe={selectedRecipe}/>}
                     </div>
                 </div>
             </Container>
